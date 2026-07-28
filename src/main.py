@@ -5,6 +5,7 @@ import pandas as pd
 from src.data_loader import VALID_PERIODS, download_stock_data
 from src.financial_metrics import calculate_financial_metrics
 from src.risk_metrics import calculate_risk_metrics
+from src.visualization import create_stock_charts
 
 def calculate_price_summary(
     data: pd.DataFrame,
@@ -147,6 +148,17 @@ def main() -> None:
                     f"Net profit margin: "
                     f"{financial_results['net_profit_margin']:.2%}"
                 )
+                
+                chart_files = create_stock_charts(
+                    data=stock_data,
+                    ticker=ticker_input,
+                )
+                
+                print("\nCharts")
+                print("------")
+                
+                for file_name in chart_files:
+                    print(f"Saved: {file_name}")
 
             except ValueError as error:
                 print(f"Input error: {error}")
