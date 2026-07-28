@@ -52,7 +52,7 @@ The charts below show a five-year analysis of Microsoft Corporation (`MSFT`).
 
 ### Historical Closing Price
 
-![Microsoft historical closing price](outputs/MSFT_price.png)
+![Microsoft historical closing price](outputs/MSFT_historical_closing_price.png)
 
 ### Cumulative Return
 
