@@ -3,7 +3,7 @@
 import pandas as pd
 
 from src.data_loader import VALID_PERIODS, download_stock_data
-
+from src.risk_metrics import calculate_risk_metrics
 
 def calculate_price_summary(
     data: pd.DataFrame,
@@ -94,6 +94,30 @@ def main() -> None:
                 print_stock_summary(
                     ticker=ticker_input,
                     data=stock_data,
+                )
+                
+                risk_results = calculate_risk_metrics(
+                    data=stock_data, 
+                    risk_free_rate=0.0,
+                )
+                
+                print("\nRisk Metrics")
+                print("------------")
+                print(
+                    f"Annual return: "
+                    f"{risk_results['annual_return']:.2%}"
+                )
+                print(
+                    f"Annual volatility: "
+                    f"{risk_results['annual_volatility']:.2%}"
+                )
+                print(
+                    f"Maximum drawdown: "
+                    f"{risk_results['maximum_drawdown']:.2%}"
+                )
+                print(
+                    f"Sharpe ratio: "
+                    f"{risk_results['sharpe_ratio']:.2f}"
                 )
 
             except ValueError as error:
