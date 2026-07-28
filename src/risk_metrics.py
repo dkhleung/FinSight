@@ -1,4 +1,3 @@
-"""Functions for calculating investment risk and return metrics."""
 """Calculate investment risk and return metrics for FinSight."""
 
 from math import sqrt
