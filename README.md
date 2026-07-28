@@ -82,6 +82,24 @@ FinSight currently calculates:
 
 Results depend on the selected ticker, analysis period, and latest available public data.
 
+## Testing
+
+FinSight includes automated tests for:
+
+- ticker normalization;
+- analysis-period validation;
+- invalid-input handling;
+- risk-metric output structure;
+- missing-column validation.
+
+Run the test suite from the project directory with:
+
+```bash
+pytest -q
+```
+
+The current test suite contains five automated tests.
+
 ## Project Status
 
 FinSight currently supports:
