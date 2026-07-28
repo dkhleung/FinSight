@@ -46,6 +46,12 @@ FinSight/
 └── README.md
 ```
 
+## Case Study Notebook
+
+A complete Microsoft equity-analysis case study is available here:
+
+[View the Microsoft case-study notebook](notebooks/01_msft_case_study.ipynb)
+
 ## Example Analysis
 
 The charts below show a five-year analysis of Microsoft Corporation (`MSFT`).
