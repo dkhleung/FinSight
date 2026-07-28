@@ -44,3 +44,53 @@ FinSight/
 ├── tests/          # Project tests
 ├── requirements.txt
 └── README.md
+```
+
+## Example Analysis
+
+The charts below show a five-year analysis of Microsoft Corporation (`MSFT`).
+
+### Historical Closing Price
+
+![Microsoft historical closing price](outputs/MSFT_price.png)
+
+### Cumulative Return
+
+![Microsoft cumulative return](outputs/MSFT_cumulative_return.png)
+
+### Drawdown
+
+![Microsoft drawdown](outputs/MSFT_drawdown.png)
+
+## Metrics Produced
+
+FinSight currently calculates:
+
+- Annualized return
+- Annualized volatility
+- Maximum drawdown
+- Sharpe ratio
+- Revenue growth
+- Net-income growth
+- Net-profit margin
+
+Results depend on the selected ticker, analysis period, and latest available public data.
+
+## Project Status
+
+FinSight currently supports:
+
+- Historical market-data retrieval
+- Interactive ticker and period selection
+- Basic stock-price statistics
+- Risk and return calculations
+- Financial-statement analysis
+- Automated price, cumulative-return, and drawdown charts
+
+The next development stages are a documented Microsoft case-study notebook,
+benchmark comparison, and automated testing.
+
+## Disclaimer
+
+FinSight is an educational project and does not provide investment advice.
+Market and financial data may be delayed, incomplete, or subject to revision.
