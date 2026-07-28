@@ -3,6 +3,7 @@
 import pandas as pd
 
 from src.data_loader import VALID_PERIODS, download_stock_data
+from src.financial_metrics import calculate_financial_metrics
 from src.risk_metrics import calculate_risk_metrics
 
 def calculate_price_summary(
@@ -118,6 +119,33 @@ def main() -> None:
                 print(
                     f"Sharpe ratio: "
                     f"{risk_results['sharpe_ratio']:.2f}"
+                )
+                
+                financial_results = calculate_financial_metrics(
+                    ticker=ticker_input
+                )
+                
+                print("\nFinancial Metrics")
+                print("-----------------")
+                print(
+                    f"Latest revenue: "
+                    f"{financial_results['latest_revenue'] / 1_000_000_000:,.2f} billion"
+                )
+                print(
+                    f"Latest net income: "
+                    f"{financial_results['latest_net_income'] / 1_000_000_000:,.2f} billion"
+                )
+                print(
+                    f"Revenue growth: "
+                    f"{financial_results['revenue_growth']:.2%}"
+                )
+                print(
+                    f"Net income growth: "
+                    f"{financial_results['net_income_growth']:.2%}"
+                )
+                print(
+                    f"Net profit margin: "
+                    f"{financial_results['net_profit_margin']:.2%}"
                 )
 
             except ValueError as error:
