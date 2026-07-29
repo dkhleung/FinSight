@@ -68,6 +68,10 @@ The charts below show a five-year analysis of Microsoft Corporation (`MSFT`).
 
 ![Microsoft drawdown](outputs/MSFT_drawdown.png)
 
+### Benchmark Comparison
+
+![Microsoft versus S&P 500](outputs/MSFT_vs_sp500.png)
+
 ## Metrics Produced
 
 FinSight currently calculates:
@@ -79,6 +83,9 @@ FinSight currently calculates:
 - Revenue growth
 - Net-income growth
 - Net-profit margin
+- Benchmark-relative return
+- Beta
+- Return correlation
 
 Results depend on the selected ticker, analysis period, and latest available public data.
 
