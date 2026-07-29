@@ -1,7 +1,9 @@
 """Compare a stock with a selected market benchmark."""
 
 from math import sqrt
+from pathlib import Path
 
+import matplotlib.pyplot as plt
 import pandas as pd
 
 from src.data_loader import download_stock_data
@@ -152,3 +154,64 @@ def compare_with_benchmark(
     }
 
     return comparison_data, benchmark_results
+
+def create_benchmark_chart(
+    comparison_data: pd.DataFrame,
+    ticker: str,
+    benchmark_name: str = "S&P 500",
+    output_folder: str = "outputs",
+) -> str:
+    """Create a cumulative-return comparison chart."""
+
+    required_columns = {
+        "Date",
+        "stock_cumulative_return",
+        "benchmark_cumulative_return",
+    }
+
+    if not required_columns.issubset(comparison_data.columns):
+        raise ValueError(
+            "The comparison dataset is missing required columns."
+        )
+
+    clean_ticker = str(ticker).strip().upper()
+
+    output_path = Path(output_folder)
+    output_path.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
+    chart_file = (
+        output_path
+        / f"{clean_ticker}_vs_sp500.png"
+    )
+
+    plt.figure(figsize=(10, 5))
+
+    plt.plot(
+        comparison_data["Date"],
+        comparison_data["stock_cumulative_return"],
+        label=clean_ticker,
+    )
+
+    plt.plot(
+        comparison_data["Date"],
+        comparison_data["benchmark_cumulative_return"],
+        label=benchmark_name,
+    )
+
+    plt.title(
+        f"{clean_ticker} versus {benchmark_name}"
+    )
+
+    plt.xlabel("Date")
+    plt.ylabel("Cumulative Return")
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+
+    plt.savefig(chart_file)
+    plt.close()
+
+    return str(chart_file)
