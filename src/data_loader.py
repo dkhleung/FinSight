@@ -43,8 +43,6 @@ def resolve_ticker(
 
     accepted_types: set[str] = {
         "EQUITY",
-        "ETF",
-        "INDEX",
     }
 
     matches: list[dict] = []
