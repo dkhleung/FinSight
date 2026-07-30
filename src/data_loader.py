@@ -118,7 +118,7 @@ def download_stock_data(
     auto_adjust: bool = False,
     interval: str = "1d",
 ) -> pd.DataFrame:
-    """Download historical stock-price data for one ticker."""
+    """Download and validate historical market data."""
 
     clean_ticker = normalize_ticker(ticker)
     selected_period = validate_period(period)
@@ -133,29 +133,34 @@ def download_stock_data(
 
     if data.empty:
         raise ValueError(
-            f"No market data was found for ticker '{clean_ticker}'."
+            f"No market data was returned for {clean_ticker}."
         )
 
     data = data.reset_index()
 
+    # Intraday data uses "Datetime" instead of "Date".
     if "Datetime" in data.columns:
         data = data.rename(
             columns={"Datetime": "Date"}
         )
 
-    required_columns: list[str] = [
+    required_columns: set[str] = {
         "Date",
         "Open",
         "High",
         "Low",
         "Close",
         "Volume",
-    ]
+    }
 
-    available_columns = [
-        column
-        for column in required_columns
-        if column in cleaned_data.columns
-    ]
+    missing_columns = required_columns.difference(
+        data.columns
+    )
 
-    return cleaned_data[available_columns]
+    if missing_columns:
+        raise ValueError(
+            "Downloaded data is missing required columns: "
+            f"{sorted(missing_columns)}"
+        )
+
+    return data
