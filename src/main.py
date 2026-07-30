@@ -2,7 +2,11 @@
 
 import pandas as pd
 
-from src.data_loader import VALID_PERIODS, download_stock_data
+from src.data_loader import (
+    VALID_PERIODS,
+    download_stock_data,
+    resolve_ticker,
+)
 from src.financial_metrics import calculate_financial_metrics
 from src.risk_metrics import calculate_risk_metrics
 from src.visualization import create_stock_charts
@@ -67,13 +71,23 @@ def main() -> None:
     print("Enter 'quit' when you want to close the program.")
 
     while continue_program:
-        ticker_input: str = input(
-            "\nEnter a stock ticker, such as MSFT: "
+        company_input: str = input(
+            "\nEnter a company name or ticker "
+            "(for example, Apple or AAPL): "
         ).strip()
-
-        if ticker_input.lower() == "quit":
+        
+        if company_input.lower() == "quit":
             continue_program = False
         else:
+            ticker_input, company_name = resolve_ticker(
+                company_input
+            )
+            
+            print(
+                f"Selected company: "
+                f"{company_name} ({ticker_input})"
+            )
+            
             print(
                 "Available periods:",
                 ", ".join(VALID_PERIODS),
