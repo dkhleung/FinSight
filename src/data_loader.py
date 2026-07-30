@@ -116,6 +116,7 @@ def download_stock_data(
     ticker: str,
     period: str = "5y",
     auto_adjust: bool = False,
+    interval: str = "1d",
 ) -> pd.DataFrame:
     """Download historical stock-price data for one ticker."""
 
@@ -125,8 +126,9 @@ def download_stock_data(
     stock = yf.Ticker(clean_ticker)
 
     data = stock.history(
-        period=clean_period,
-        auto_adjust=bool(auto_adjust),
+        period=selected_period,
+        interval=interval,
+        auto_adjust=auto_adjust,
     )
 
     if data.empty:
@@ -134,7 +136,12 @@ def download_stock_data(
             f"No market data was found for ticker '{clean_ticker}'."
         )
 
-    cleaned_data = data.reset_index()
+    data = data.reset_index()
+
+    if "Datetime" in data.columns:
+        data = data.rename(
+            columns={"Datetime": "Date"}
+        )
 
     required_columns: list[str] = [
         "Date",
