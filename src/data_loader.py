@@ -121,7 +121,7 @@ def download_stock_data(
     """Download historical stock-price data for one ticker."""
 
     clean_ticker = normalize_ticker(ticker)
-    clean_period = validate_period(period)
+    selected_period = validate_period(period)
 
     stock = yf.Ticker(clean_ticker)
 
