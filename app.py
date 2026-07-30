@@ -1,6 +1,4 @@
-from pathlib import Path
-
-app_code = '''"""Web application for the FinSight equity research toolkit."""
+"""Web application for the FinSight equity research toolkit."""
 
 import streamlit as st
 
@@ -329,8 +327,3 @@ if analyse_button:
                 "FinSight could not complete the analysis. "
                 f"Details: {error}"
             )
-'''
-
-output_path = Path("/mnt/data/app.py")
-output_path.write_text(app_code, encoding="utf-8")
-print(f"Created {output_path}")
