@@ -34,18 +34,57 @@ company_input: str = st.text_input(
     placeholder="For example: Apple, Microsoft, AAPL or MSFT",
 )
 
-period_options: dict[str, str] = {
-    "1 year": "1y",
-    "2 years": "2y",
-    "5 years": "5y",
-    "10 years": "10y",
-    "Maximum available": "max",
+period_options: dict[str, dict[str, str]] = {
+    "1 day": {
+        "period": "1d",
+        "interval": "5m",
+    },
+    "5 days": {
+        "period": "5d",
+        "interval": "30m",
+    },
+    "1 month": {
+        "period": "1mo",
+        "interval": "1d",
+    },
+    "3 months": {
+        "period": "3mo",
+        "interval": "1d",
+    },
+    "6 months": {
+        "period": "6mo",
+        "interval": "1d",
+    },
+    "Year to date": {
+        "period": "ytd",
+        "interval": "1d",
+    },
+    "1 year": {
+        "period": "1y",
+        "interval": "1d",
+    },
+    "2 years": {
+        "period": "2y",
+        "interval": "1d",
+    },
+    "5 years": {
+        "period": "5y",
+        "interval": "1d",
+    },
+    "10 years": {
+        "period": "10y",
+        "interval": "1d",
+    },
+    "Maximum available": {
+        "period": "max",
+        "interval": "1d",
+    },
 }
 
 selected_period_label: str = st.selectbox(
     "Analysis period",
     options=list(period_options.keys()),
-    index=2,
+    index=8,
 )
 
 analyse_button: bool = st.button(
@@ -73,9 +112,13 @@ if analyse_button:
                     selected_period_label
                 ]
 
+                selected_period = selected_settings["period"]
+                selected_interval = selected_settings["interval"]
+
                 stock_data = download_stock_data(
                     ticker=ticker,
                     period=selected_period,
+                    interval=selected_interval,
                 )
 
                 risk_results = calculate_risk_metrics(
